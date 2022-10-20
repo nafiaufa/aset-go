@@ -16,7 +16,7 @@ var ResponseError = helper.ResponseError
 func Index(w http.ResponseWriter, r *http.Request) {
 	var asets []models.Aset
 
-	if err := models.DB.Find(&asets).Error; err != nil {
+	if err := models.DB.Order("id asc").Find(&asets).Error; err != nil {
 		ResponseError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
