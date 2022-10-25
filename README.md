@@ -10,7 +10,7 @@
 ## Installation
 
 - `git clone https://github.com/nafiaufa/aset-go.git`
-- `cd RestAPI-Warung-Makan`
+- `cd aset-go`
 - Edit models.setup to Set your database connection details
 - `go run main.go`
 
