@@ -6,7 +6,9 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
+	"io"
 	"net/http"
+	"os"
 	"strconv"
 )
 
@@ -119,4 +121,20 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 
 	response := map[string]string{"message": "Aset berhasil dihapus"}
 	ResponseJson(w, http.StatusOK, response)
+}
+func UploadFile(w http.ResponseWriter, r *http.Request) {
+	file, handler, err := r.FormFile("file")
+	fileName := r.FormValue("file_name")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	f, err := os.OpenFile("./invoice/"+handler.Filename, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+	_, _ = io.WriteString(w, "File invoice "+fileName+" Uploaded successfully")
+	_, _ = io.Copy(f, file)
 }

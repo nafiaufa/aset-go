@@ -47,7 +47,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// proses pembuatan token jwt
-	expTime := time.Now().Add(time.Minute * 1)
+	expTime := time.Now().Add(time.Minute * 5)
 	claims := &config.JWTClaim{
 		Username: user.Username,
 		RegisteredClaims: jwt.RegisteredClaims{
@@ -79,7 +79,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 }
 
 func Register(w http.ResponseWriter, r *http.Request) {
-
 	// mengambil inputan json
 	var userInput models.User
 	decoder := json.NewDecoder(r.Body)
